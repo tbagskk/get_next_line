@@ -23,7 +23,7 @@ size_t	ft_strlen(const char *str)
 	}
 	return (i);
 }
-
+/*
 char	*ft_strjoin(char *s1, char *s2)
 {
 	size_t	size;
@@ -31,6 +31,11 @@ char	*ft_strjoin(char *s1, char *s2)
 	size_t	i;
 	size_t	j;
 
+	if (!s1)
+	{
+		s1 = malloc(sizeof(char));
+		s1[0] = '\0';
+	}
 	if (s1 && s2)
 	{
 	size = ft_strlen(s1) + ft_strlen(s2);
@@ -48,14 +53,14 @@ char	*ft_strjoin(char *s1, char *s2)
 		j++;
 		}
 	tab[i] = 0;
-		return (tab);
+	free(s1);
+	return (tab);
 	}
 	free(s1);
-	free(s2);
 	return (NULL);
 }
 
-/*
+*/
 char	*ft_strjoin(char *line, char *buff)
 {
 	size_t	i;
@@ -83,19 +88,27 @@ char	*ft_strjoin(char *line, char *buff)
 	free(line);
 	return (res);
 }
-*/
-char	*ft_strchr(const char *s, int c)
-{
-	char	*str;
 
-	str = (char *)s;
-	while (*str != c)
+char	*ft_strchr(char *s, char c)
+{
+	if (!s)
+		return (NULL);
+	while (*s != c)
 	{
-		if (*str == '\0')
-		{
+		if (*s == '\0')
 			return (NULL);
-		}
-		str++;
+		s++;
 	}
-	return (str);
+	return (s);
 }
+/*
+char	*ft_strchr(char *str, char n)
+{
+	if (!str)
+		return (0);
+	while (*str)
+		if (*str++ == n)
+			return (&*str);
+	return (0);
+}
+*/

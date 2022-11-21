@@ -11,6 +11,9 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
 char	*ft_notfishished(int fd, char *tab)
 {
@@ -18,7 +21,7 @@ char	*ft_notfishished(int fd, char *tab)
 	int		var;
 
 	var = 1;
-	buff = malloc(BUFFER_SIZE + 1 * sizeof(char));
+	buff = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buff)
 		return (NULL);
 	while (!ft_strchr(tab, '\n') && var != 0)
@@ -27,6 +30,8 @@ char	*ft_notfishished(int fd, char *tab)
 		if (var == -1)
 		{
 			free(buff);
+			tab = 0;
+			free(tab);
 			return (NULL);
 		}
 		buff[var] = 0;
@@ -41,9 +46,9 @@ char	*ft_newline(char *str)
 	char	*tab;
 	int		i;
 
-	if (!str)
+	if (!str[0])
 		return (NULL);
-	tab = malloc(sizeof(char) * (ft_strlen(str) + 2));
+	tab = malloc(sizeof(char) * (ft_strlen(str) + 1));
 	if (!tab)
 		return (NULL);
 	i = 0;
@@ -60,6 +65,7 @@ char	*ft_newline(char *str)
 	tab[i] = '\0';
 	return (tab);
 }
+
 char	*ft_tofill(char *str)
 {
 	int		i;
@@ -75,7 +81,7 @@ char	*ft_tofill(char *str)
 		free(str);
 		return (NULL);
 	}
-	tab = malloc(sizeof(char) * ft_strlen(str) - i + 1);
+	tab = malloc(sizeof(char) * ((ft_strlen(str) - i) + 2));
 	if (!tab)
 		return (NULL);
 	i++;
@@ -93,19 +99,16 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	stat = ft_notfishished(fd, tmp);
-	//printf("%s",tmp);
+	stat = ft_notfishished(fd, stat);
 	if (!stat)
+	{
 		return (NULL);
-//tmp = ft_newline(stat);
-	//stat = ft_tofill(stat);
+	}	
+tmp = ft_newline(stat);
+	stat = ft_tofill(stat);
 	return (tmp);
 }
-
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-
+/*
 int	main()
 {
 	int		fd;
@@ -117,5 +120,6 @@ int	main()
 		return (1);
 	}
 	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
+
 }
+*/
