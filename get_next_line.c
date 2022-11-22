@@ -6,14 +6,11 @@
 /*   By: gcherqui <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/20 15:40:02 by gcherqui          #+#    #+#             */
-/*   Updated: 2022/11/20 15:40:03 by gcherqui         ###   ########.fr       */
+/*   Updated: 2022/11/22 09:46:41 by gcherqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
 
 char	*ft_notfishished(int fd, char *tab)
 {
@@ -30,7 +27,6 @@ char	*ft_notfishished(int fd, char *tab)
 		if (var == -1)
 		{
 			free(buff);
-			tab = 0;
 			free(tab);
 			return (NULL);
 		}
@@ -81,7 +77,7 @@ char	*ft_tofill(char *str)
 		free(str);
 		return (NULL);
 	}
-	tab = malloc(sizeof(char) * ((ft_strlen(str) - i) + 2));
+	tab = malloc(sizeof(char) * ((ft_strlen(str) - i) + 1));
 	if (!tab)
 		return (NULL);
 	i++;
@@ -104,7 +100,7 @@ char	*get_next_line(int fd)
 	{
 		return (NULL);
 	}	
-tmp = ft_newline(stat);
+	tmp = ft_newline(stat);
 	stat = ft_tofill(stat);
 	return (tmp);
 }

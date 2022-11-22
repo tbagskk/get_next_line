@@ -6,7 +6,7 @@
 /*   By: gcherqui <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/20 15:39:25 by gcherqui          #+#    #+#             */
-/*   Updated: 2022/11/20 15:39:26 by gcherqui         ###   ########.fr       */
+/*   Updated: 2022/11/22 09:46:20 by gcherqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,10 @@ size_t	ft_strlen(const char *str)
 	}
 	return (i);
 }
-/*
+
 char	*ft_strjoin(char *s1, char *s2)
 {
-	size_t	size;
-	char	*tab;
-	size_t	i;
-	size_t	j;
+	t_vrb	bob;
 
 	if (!s1)
 	{
@@ -38,55 +35,22 @@ char	*ft_strjoin(char *s1, char *s2)
 	}
 	if (s1 && s2)
 	{
-	size = ft_strlen(s1) + ft_strlen(s2);
-	tab = malloc(sizeof(char) * size + 1);
-	i = -1;
-	j = 0;
-		if (!tab)
+		bob.size = ft_strlen(s1) + ft_strlen(s2);
+		bob.tab = malloc(sizeof(char) * bob.size + 1);
+		bob.i = -1;
+		bob.j = 0;
+		if (!bob.tab)
 			return (NULL);
-		while (s1[++i])
-		tab[i] = s1[i];
-		while (s2[j])
-		{
-		tab[i] = s2[j];
-		i++;
-		j++;
-		}
-	tab[i] = 0;
-	free(s1);
-	return (tab);
+		while (s1[++bob.i])
+			bob.tab[bob.i] = s1[bob.i];
+		while (s2[bob.j])
+			bob.tab[bob.i++] = s2[bob.j++];
+		bob.tab[bob.i] = 0;
+		free(s1);
+		return (bob.tab);
 	}
 	free(s1);
 	return (NULL);
-}
-
-*/
-char	*ft_strjoin(char *line, char *buff)
-{
-	size_t	i;
-	size_t	j;
-	char	*res;
-
-	i = 0;
-	j = 0;
-	if (!line)
-	{
-		line = malloc(sizeof(char));
-		line[0] = '\0';
-	}
-	if (!buff || !line)
-		return (NULL);
-	res = malloc((ft_strlen(line) + ft_strlen(buff) + 1) * sizeof(char));
-	if (!res)
-		return (NULL);
-	while (line[j])
-		res[i++] = line[j++];
-	j = 0;
-	while (buff[j])
-		res[i++] = buff[j++];
-	res[i] = '\0';
-	free(line);
-	return (res);
 }
 
 char	*ft_strchr(char *s, char c)
@@ -101,14 +65,3 @@ char	*ft_strchr(char *s, char c)
 	}
 	return (s);
 }
-/*
-char	*ft_strchr(char *str, char n)
-{
-	if (!str)
-		return (0);
-	while (*str)
-		if (*str++ == n)
-			return (&*str);
-	return (0);
-}
-*/
