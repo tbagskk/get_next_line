@@ -1,3 +1,3 @@
 # get_next_line
 
-Projetc get next line to 42 scholl
+Le projet get_next_line de l'ecole 42, il passe en paco normal, mais pas en paco -s
